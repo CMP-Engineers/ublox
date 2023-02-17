@@ -1,26 +1,41 @@
 # Configuration Settings for ZED-F9R device
+
+# Changes to follow:
+# https://github.com/KumarRobotics/ublox/issues/56
+# https://github.com/KumarRobotics/ublox/issues/59
+# https://github.com/KumarRobotics/ublox/issues/190
+# 
+# 
+
 ublox_gps_node:
   ros__parameters:
-    debug: 0                    # Range 0-4 (0 means no debug statements will print)
+    debug: 1                    # Range 0-4 (0 means no debug statements will print)
     # device: /dev/ttyACM0
     device: /dev/serial/by-id/usb-u-blox_AG_-_www.u-blox.com_u-blox_GNSS_receiver-if00
     frame_id: gps
     uart1:
       baudrate: 115200
-    # TMODE3 Config
-#     tmode3: 1                   # Survey-In Mode
-#     sv_in:
-#       reset: True               # True: disables and re-enables survey-in (resets)
-#                                 # False: Disables survey-in only if TMODE3 is
-#                                 # disabled
-#       min_dur: 300              # Survey-In Minimum Duration [s]
-#       acc_lim: 3.0              # Survey-In Accuracy Limit [m]
 
+    config_on_startup: false  # with this set, ublox will not attempt to configure device ?
+
+    rate: 4
+    nav_rate: 1
+    dynamic_model: 11 # e-scooter - see https://github.com/KumarRobotics/ublox/pull/204
+    
+    gnss:
+      glonass: true
+      beidou: true
+      qzss: true
+      galileo: true
+      qzss_sig_cfg: 0x110000
+    
     inf:
       all: true                   # Whether to display all INF messages in console
     
     publish:
       all: true
+      esf:
+        meas: true
       aid:
         hui: false
       nav:
